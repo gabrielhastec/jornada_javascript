@@ -26,11 +26,11 @@ export function getProdutoStatus(titulo) {
 export function venderProduto(quantidade) {    
 
     if (quantidade > estoqueProduto) {
-        console.log(`❌ Venda cancelada: estoque insuficiente (${estoqueProduto} disponível).`);
+        console.log(`Venda cancelada: estoque insuficiente (${estoqueProduto} disponível).`);
         return false;
     }
     estoqueProduto -= quantidade;
-    console.log(`✅ Venda de ${quantidade} unidade(s) realizada. Estoque restante: ${estoqueProduto}`);
+    console.log(`Venda de ${quantidade} unidade(s) realizada. Estoque restante: ${estoqueProduto}`);
     return true;
 
 }
@@ -39,5 +39,20 @@ export function venderProduto(quantidade) {
 export function setPromocao(status) {
     activeProduto = status;
     console.log(`Promoção ${status ? "ativada" : "desativada"}.`);
+}
+
+export function setConfig(newConfig) {
+    if (newConfig.minEstoque < 0 || newConfig.maxEstoque < 0) {
+        console.log("Configuração inválida: minEstoque e maxEstoque devem ser não negativos.");
+        return false;
+    }
+    if (newConfig.minEstoque > newConfig.maxEstoque) {
+        console.log("Configuração inválida: minEstoque não pode ser maior que maxEstoque.");
+        return false;
+    }
+    config.maxEstoque = newConfig.maxEstoque;
+    config.minEstoque = newConfig.minEstoque;
+    console.log(`Config atualizada: min=${config.minEstoque}, max=${config.maxEstoque}`);
+  return true;
 }
 
